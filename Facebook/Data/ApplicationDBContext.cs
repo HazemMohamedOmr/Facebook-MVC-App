@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Facebook.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Facebook.Data
 {
@@ -8,5 +9,8 @@ namespace Facebook.Data
         {
 
         }
+
+        public DbSet<User> Users { get; set; }
+   
     }
 }

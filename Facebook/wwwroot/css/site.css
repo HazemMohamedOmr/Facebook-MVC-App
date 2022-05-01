@@ -1,5 +1,5 @@
 html {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 @media (min-width: 768px) {
@@ -16,3 +16,128 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+html, body {
+    font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
+}
+
+.login-in {
+    background-color: #f0f2f5;
+    min-height: 720px;
+    padding-bottom: 112px;
+    padding-top: 72px;
+}
+
+.login-in .Info .face-info p {
+    font-size: 28px;
+    font-weight: normal;
+    line-height: 32px;
+}
+
+.login-in .login-form form {
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+    box-sizing: border-box;
+    margin: 40px 0 0;
+    padding: 20px 0 28px;
+    padding-top: 20px;
+    padding-bottom: 28px;
+    width: 396px;
+}
+
+    .login-in .login-form form input {
+        font-size: 17px;
+        padding: 14px 16px;
+        line-height: 16px;
+        color: #1d2129;
+    }
+
+        .login-in .login-form form input::placeholder {
+            color: #c2c4c9;
+        }
+
+.login-in .login-form .log-btn {
+    background-color: #1877f2;
+    border: none;
+    border-radius: 6px;
+    font-size: 20px;
+    line-height: 48px;
+    padding: 0 16px;
+    text-align: center;
+    font-weight: bold;
+    width: 100%;
+    color: #fff;
+}
+
+.login-in .login-form .new-acc-btn {
+    background-color: #42b72a;
+    border: none;
+    border-radius: 6px;
+    font-size: 17px;
+    line-height: 48px;
+    padding: 0 16px;
+    text-align: center;
+    font-weight: bold;
+    margin: 0 auto;
+    color: #fff;
+}
+
+.Register-in {
+    background-color: #f0f2f5;
+    min-height: 720px;
+    padding-bottom: 112px;
+}
+
+    .Register-in .register-form {
+        background-color: #fff;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+        box-sizing: border-box;
+        margin: 10px 0;
+        padding: 10px 0 0;
+        width: 430px;
+    }
+
+        .Register-in .register-form .Info .title h3 {
+            font-size: 25px;
+            line-height: 32px;
+            font-weight: 600;
+            text-align: center;
+            color: #1c1e21;
+            margin-bottom: 0;
+        }
+
+        .Register-in .register-form .Info .head p {
+            font-size: 15px;
+            line-height: 24px;
+            text-align: center;
+            margin-bottom: 0;
+            color: #606770;
+        }
+
+        .Register-in .register-form form input {
+            font-size: 17px;
+            padding: 10px 16px;
+            line-height: 16px;
+            color: #1d2129;
+        }
+
+            .Register-in .register-form form input::placeholder {
+                color: #c2c4c9;
+            }
+
+        .Register-in .register-form .sign-btn {
+            background-color: #42b72a;
+            border: none;
+            border-radius: 6px;
+            font-size: 17px;
+            line-height: 36px;
+            padding: 0 16px;
+            text-align: center;
+            font-weight: bold;
+            margin: 0 auto;
+            color: #fff;
+        }
