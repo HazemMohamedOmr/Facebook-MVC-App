@@ -19,6 +19,7 @@ namespace Facebook.Controllers
                 return RedirectToAction("Login");
             User user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("UserData")); 
             return View(user);
+            //HttpContext.Session.Remove("UserData");
         }
 
         public IActionResult Login()
