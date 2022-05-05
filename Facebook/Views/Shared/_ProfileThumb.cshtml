@@ -1,0 +1,23 @@
+﻿@model Facebook.Models.ViewModels._ProfileThumbModel
+<section class="profileSection">
+    <div class="coverPhotoS pb-2">
+        <div class="row">       
+            <label for="coverPhoto" id="coverGred"  class="p-0 coverPhotoGredient" style="cursor: pointer;">       
+                <img src="@Model.user.ProfileCover" class="w-100 card-img-top" height="330px" alt="" id="cover">
+            </label>
+        </div>
+        <div class="row mt-2">
+            <div class="col-lg-7 profileNameImage">
+                <label style="cursor: pointer;" for="profilePic" class="ms-lg-3 profilePicTrans" >
+                    <img style="border-radius: 50%; " src="@Model.user.ProfileImage"  width="130px" height="130px" id="profile" alt="">
+                    <span class="ProfPicName">@Model.user.FirstName @Model.user.SecondName</span>
+                </label>  
+            </div>
+            <div class="col-lg-5 text-md-end text-center mt-lg-3 @(Model.ThumbBtnVis?"":"d-none")">
+                <button class="btn btn-primary mb-1"><i class="fa-solid fa-plus"></i> Add Friend</button>
+                <button class="btn btn-primary mb-1"><i class="fa-solid fa-check"></i> Friends</button>
+                <button class="btn btn-secondary mb-1"><i class="fa-solid fa-pen"></i> Edit profile</button>
+            </div>
+        </div>
+    </div> 
+</section>
