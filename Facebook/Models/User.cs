@@ -1,10 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Facebook.Models
-{
-    public class User
-    {
+namespace Facebook.Models {
+    public class User {
         [Display(Name = "Student ID")]
         public int Id { get; set; }
 
@@ -35,7 +33,7 @@ namespace Facebook.Models
 
         [Display(Name = "Phone Number", Prompt = "Phone Number", Description = "Phone of the account")]
         [Required(ErrorMessage = "Phone Number is required.")]
-        [Phone(ErrorMessage="You must provide a valid Phone number!")]
+        [Phone(ErrorMessage = "You must provide a valid Phone number!")]
         public string Phone { get; set; }
 
         [Display(Name = "Country", Prompt = "Country", Description = "Your Country")]
@@ -49,5 +47,10 @@ namespace Facebook.Models
 
         [Display(Name = "Profile Cover", Prompt = "Profile Cover", Description = "Profile Cover of the account")]
         public string? ProfileCover { get; set; }
+
+        public List<UserFriend>? UserFriends { get; set; }
+        public List<Post>? Posts { get; set; }
+
+
     }
 }
