@@ -11,16 +11,8 @@ namespace Facebook.Data {
 
             modelBuilder.Entity<UserFriend>()
                 .HasKey(b => new { b.UserId, b.FriendId });
-
-            modelBuilder.Entity<Post>()
-                .HasKey(b => new { b.UserId, b.PostId });
-
             modelBuilder.Entity<PostLike>()
                 .HasKey(b => new { b.UserId, b.PostId });
-
-            modelBuilder.Entity<PostComment>()
-                .HasKey(b => new { b.CommentId, b.PostId });
-
         }
 
         public DbSet<User> Users { get; set; }

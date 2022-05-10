@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Facebook.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20220505235034_CreatingManyTables")]
-    partial class CreatingManyTables
+    [Migration("20220510043651_UpdatePostsTable")]
+    partial class UpdatePostsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,10 +26,19 @@ namespace Facebook.Migrations
 
             modelBuilder.Entity("Facebook.Models.Post", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("PostId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("PostId")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PostId"), 1L, 1);
+
+                    b.Property<int>("NumOfComment")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumOfDisLike")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumOfLike")
                         .HasColumnType("int");
 
                     b.Property<string>("PostContent")
@@ -39,10 +48,18 @@ namespace Facebook.Migrations
                     b.Property<DateTime>("PostDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("PostImage")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("PostStatus")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId", "PostId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PostId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Posts");
                 });
@@ -50,10 +67,10 @@ namespace Facebook.Migrations
             modelBuilder.Entity("Facebook.Models.PostComment", b =>
                 {
                     b.Property<int>("CommentId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommentId"), 1L, 1);
 
                     b.Property<DateTime>("CommentDate")
                         .HasColumnType("datetime2");
@@ -62,18 +79,17 @@ namespace Facebook.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PostId1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PostUserId")
+                    b.Property<int>("PostId")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("CommentId", "PostId");
+                    b.HasKey("CommentId");
 
-                    b.HasIndex("PostUserId", "PostId1");
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("PostComments");
                 });
@@ -89,15 +105,9 @@ namespace Facebook.Migrations
                     b.Property<bool>("LikeStatus")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PostId1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PostUserId")
-                        .HasColumnType("int");
-
                     b.HasKey("UserId", "PostId");
 
-                    b.HasIndex("PostUserId", "PostId1");
+                    b.HasIndex("PostId");
 
                     b.ToTable("PostLikes");
                 });
@@ -155,6 +165,9 @@ namespace Facebook.Migrations
                     b.Property<int>("FriendId")
                         .HasColumnType("int");
 
+                    b.Property<int>("FriendRequestStatus")
+                        .HasColumnType("int");
+
                     b.HasKey("UserId", "FriendId");
 
                     b.ToTable("UserFriends");
@@ -175,22 +188,38 @@ namespace Facebook.Migrations
                 {
                     b.HasOne("Facebook.Models.Post", "Post")
                         .WithMany("Comments")
-                        .HasForeignKey("PostUserId", "PostId1")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Facebook.Models.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Post");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Facebook.Models.PostLike", b =>
                 {
                     b.HasOne("Facebook.Models.Post", "Post")
                         .WithMany("Likes")
-                        .HasForeignKey("PostUserId", "PostId1")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Facebook.Models.User", "User")
+                        .WithMany("Likes")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Post");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Facebook.Models.UserFriend", b =>
@@ -213,6 +242,10 @@ namespace Facebook.Migrations
 
             modelBuilder.Entity("Facebook.Models.User", b =>
                 {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Likes");
+
                     b.Navigation("Posts");
 
                     b.Navigation("UserFriends");

@@ -95,22 +95,14 @@ if (dark != null) {
 
 
 //show comments
-function showComments() {
-    var comments = document.getElementById('comments');
+function showComments(x) {
+    id = "comments+" + x
+    var comments = document.getElementById(id);
     if (comments.style.display === "none") {
         comments.style.display = "block";
     }
     else {
         comments.style.display = "none";
-    }
-}
-function showComments2() {
-    var comments2 = document.getElementById('comments2');
-    if (comments2.style.display === "none") {
-        comments2.style.display = "block";
-    }
-    else {
-        comments2.style.display = "none";
     }
 }
 
@@ -213,31 +205,31 @@ if (document.querySelector('#searching')) {
 
 // }
 
-let likebtn = document.querySelectorAll('.likes');
-if (likebtn != null) {
-    likebtn.forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-            // console.log(e.currentTarget);
-            e.currentTarget.classList.toggle('activeLike');
-            e.currentTarget.nextElementSibling.classList.remove('activeDislike');
-        })
-    })
-}
+//let likebtn = document.querySelectorAll('.likes');
+//if (likebtn != null) {
+//    likebtn.forEach((btn) => {
+//        btn.addEventListener('click', (e) => {
+//            // console.log(e.currentTarget);
+//            e.currentTarget.classList.toggle('activeLike');
+//            e.currentTarget.nextElementSibling.classList.remove('activeDislike');
+//        })
+//    })
+//}
 
 
 
-let Dislikebtn = document.querySelectorAll('.dislikes');
+//let Dislikebtn = document.querySelectorAll('.dislikes');
 
-if (Dislikebtn != null) {
-    Dislikebtn.forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-            console.log(e.currentTarget.previousElementSibling);
-            console.log(e.currentTarget.nextElementSibling);
-            e.currentTarget.classList.toggle('activeDislike');
-            e.currentTarget.previousElementSibling.classList.remove('activeLike');
-        })
-    })
-}
+//if (Dislikebtn != null) {
+//    Dislikebtn.forEach((btn) => {
+//        btn.addEventListener('click', (e) => {
+//            console.log(e.currentTarget.previousElementSibling);
+//            console.log(e.currentTarget.nextElementSibling);
+//            e.currentTarget.classList.toggle('activeDislike');
+//            e.currentTarget.previousElementSibling.classList.remove('activeLike');
+//        })
+//    })
+//}
 
 
 

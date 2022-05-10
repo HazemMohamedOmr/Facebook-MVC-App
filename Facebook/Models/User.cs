@@ -50,7 +50,8 @@ namespace Facebook.Models {
 
         public List<UserFriend>? UserFriends { get; set; }
         public List<Post>? Posts { get; set; }
-
+        public List<PostLike>? Likes { get; set; }
+        public List<PostComment>? Comments { get; set; }
 
     }
 }

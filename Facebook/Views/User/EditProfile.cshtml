@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3 detailsDiv">
                                     <label asp-for="User.ConfirmPassword" for="ConfirmPassword" class="form-label"></label>
-                                    <input asp-for="User.ConfirmPassword" value="@Model.User.ConfirmPassword" class="form-control" id="ConfirmPassword">
+                                    <input asp-for="User.ConfirmPassword" value="@Model.User.Password" class="form-control" id="ConfirmPassword">
                                     <span asp-validation-for="User.ConfirmPassword" class="form-text text-danger"></span>
                                 </div>
                             </div>
@@ -80,10 +80,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 text-center">
-                                    <button type="submit" class="cardBtnIntro cardBtnIntroFrom">Update</button> 
+                                    <button type="submit" class="cardBtnIntro cardBtnIntroFrom">Update</button>
                                 </div>
                                 <div class="col-md-6 text-center">
-                                    <button type="reset" class="cardBtnIntro cardBtnIntroFrom">Reset</button> 
+                                    <button type="reset" class="cardBtnIntro cardBtnIntroFrom">Reset</button>
                                 </div>
                             </div>
                         </form>
@@ -96,4 +96,4 @@
 
 @*@section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}*@
+    }*@
