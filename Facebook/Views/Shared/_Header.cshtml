@@ -15,8 +15,8 @@
         <div class="d-flex">
             <div class="icons">
                 <div class="SmallUser">
-                    <img src="~/img/user1.png" alt="facebook user">
-                    <a style="text-decoration:none;" asp-action="Index">User</a>
+                    <img src="@Model.User.ProfileImage" alt="facebook user">
+                    <a style="text-decoration:none;" asp-action="Index">@Model.User.FirstName</a>
                 </div>
             </div>
 
@@ -65,8 +65,8 @@
             </div>
             <div class="Logout-container shadow-lg ">
                 <div class="small-info">
-                    <img src="~/img/user1.png" alt="">
-                    <p>Ram El-Din Hussein</p>
+                    <img src="@Model.User.ProfileImage" alt="">
+                    <p>@Model.User.FirstName @Model.User.SecondName</p>
                 </div>
                 <div class="text-end d-none">
                     <input type="radio" id="light" name="mode" value="light">
@@ -74,7 +74,7 @@
                     <input type="radio" id="dark" name="mode" value="dark">
                 </div>
                 <div class="small-element">
-                    <a href="#"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Log Out </a>
+                    <a asp-controller="User" asp-action="Logout"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Log Out </a>
                 </div>
             </div>
 

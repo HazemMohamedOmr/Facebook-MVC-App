@@ -5,12 +5,6 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-lg-5 offset-lg-1 d-flex">
-                <a asp-controller="User" asp-action="Index" class="btn headBtns headBtnsPosts w-50">Posts</a>
-                <a asp-controller="User" asp-action="MyFriends" class="btn headBtns ms-3 w-50">Friends</a>
-            </div>
-        </div>
-        <div class="row">
             <!--user Data-->
             <div class="col-lg-5 offset-lg-1">
                 <div class="card boxesCards">
@@ -26,17 +20,12 @@
                                 <span><i class="fa-solid fa-earth-americas"></i> @Model.User.Country </span>
                             }
                             <span><i class="fa-solid fa-phone"></i> @Model.User.Phone</span>
-
                         </div>
-                        <button class="cardBtnIntro"> <a class="text-dark" style="text-decoration:none;" asp-action="EditProfile">Edit Profile</a> </button>
-
                     </div>
                 </div>
             </div>
             <!--Posts-->
             <div class="col-lg-5 ">
-                <!--Cteate Post-->
-                @await Html.PartialAsync("_CreatePost",Model)
                 <!--Posts-->
                 @await Html.PartialAsync("_ListPosts",Model)
             </div>

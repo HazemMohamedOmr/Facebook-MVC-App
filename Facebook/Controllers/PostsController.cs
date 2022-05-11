@@ -15,7 +15,7 @@ namespace Facebook.Controllers {
         [HttpPost]
         public IActionResult CreatePost(Post post, IFormFile? postImg) {
 
-            if (post.PostContent == null || postImg == null) {
+            if (post.PostContent == null && postImg == null) {
                 return RedirectToAction("Index", "User");
 
             }
@@ -35,8 +35,43 @@ namespace Facebook.Controllers {
             context.SaveChanges();
             return RedirectToAction("Index", "User");
         }
+        [HttpGet]
+        public IActionResult EditPost(int postId) {
+            User user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("UserData"));
+            Post post = context.Posts.SingleOrDefault(p => p.PostId == postId);
+            UserProfileViewModel userProfile = new UserProfileViewModel() {
+                _Header = new _HeaderModel() {
+                    User = user,
+                },
+                _ProfileThumb = new _ProfileThumbModel() {
+                    user = user,
+                    ThumbBtnVis = true
+                },
+                User = user,
+                CurUser = user,
+                Post = post
+            };
+            return View("EditPost", userProfile);
+        }
+        [HttpPost]
+        public IActionResult EditThePost(Post post) {
+
+            context.Posts.Update(post);
+            context.SaveChanges();
+            return RedirectToAction("Index", "User");
+        }
+
+        public IActionResult DeletePost(int postId) {
+            Post post = context.Posts.Find(postId);
+            context.Posts.Remove(post);
+            context.SaveChanges();
+            return RedirectToAction("Index", "User");
+        }
+
+
         [HttpPost]
         public IActionResult React(PostLike like, bool likeStatus) {
+            User curUser = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("UserData"));
             Post post = context.Posts.FirstOrDefault(p => p.PostId == like.PostId);
             PostLike postLike = context.PostLikes.SingleOrDefault(lid => lid.PostId == like.PostId && lid.UserId == like.UserId);
             if (postLike == null) {
@@ -74,10 +109,16 @@ namespace Facebook.Controllers {
                 context.Posts.Update(post);
                 context.SaveChanges();
             }
-            return RedirectToAction("Index", "User");
+
+            if (post.UserId == curUser.Id)
+                return RedirectToAction("Index", "User");
+            else {
+                return RedirectToAction("GetUser", "User", post);
+            }
         }
         [HttpPost]
         public IActionResult AddComment(PostComment comment) {
+            User curUser = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("UserData"));
             Post post = context.Posts.FirstOrDefault(p => p.PostId == comment.PostId);
             if (comment.CommentText == null) {
                 return RedirectToAction("Index", "User");
@@ -86,8 +127,19 @@ namespace Facebook.Controllers {
             context.PostComments.Add(comment);
             context.Posts.Update(post);
             context.SaveChanges();
-            return RedirectToAction("Index", "User");
+
+            if (post.UserId == curUser.Id)
+                return RedirectToAction("Index", "User");
+            else {
+                return RedirectToAction("GetUser", "User", post);
+            }
         }
+
+
+
+
+
+
 
     }
 

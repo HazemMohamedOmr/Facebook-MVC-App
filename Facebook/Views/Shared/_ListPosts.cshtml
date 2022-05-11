@@ -9,12 +9,24 @@
         <div class="card boxesCards px-0 mx-0">
             @*<!--Post Header-->*@
             <div class="card-body">
-                <div class="row">
+                <div class="row ">
                     <div class="col-2">
                         <img width="50px" height="50px" src="@Model.User.ProfileImage" class="profilePic" alt="">
                     </div>
-                    <div class="col-10">
-                        <span class="nameLink">@Model.User.FirstName @Model.User.SecondName</span>
+                    <div class="col-10 row">
+                        <div class="col-12 d-flex justify-content-between">
+                            <span class="nameLink">@Model.User.FirstName @Model.User.SecondName</span>
+                            @if (Model.User.Id == Model.CurUser.Id) {
+                                <div class="align-content-end text-end">
+                                    <a asp-action="EditPost" asp-controller="Posts" asp-route-postId="@post.PostId" class="btn  imgUpload">
+                                        <i class="fa-solid fas fa-cog"></i>
+                                    </a>
+                                    <a asp-action="DeletePost" asp-controller="Posts" asp-route-postId="@post.PostId" class="btn  imgUpload ">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </a>
+                                </div>
+                            }
+                        </div>
                         <p>
                             @post.PostDate
                             @{
@@ -34,6 +46,7 @@
                                 }
                             }
                         </p>
+
                     </div>
                 </div>
             </div>
@@ -59,7 +72,7 @@
                     <input hidden asp-for="@Model.Like.UserId" value="@Model.User.Id">
                     @foreach (var item in (List<PostLike>)@Model.PostModel.Likes) {
                         if (@item.PostId == @post.PostId) {
-                            <button asp-controller="Posts" asp-action="React" asp-route-likeStatus="true" class="btn btnwidth likeG likes @(@item.LikeStatus==true ? "activeLike" : "")" style="float: left;">
+                            <button asp-controller="Posts" asp-action="React" asp-route-likeStatus="true" class="btn btnwidth likeG likes @(item.LikeStatus==true ? "activeLike" : "")" style="float: left;">
                                 <i class="me-2 fa-solid fa-thumbs-up"></i>Like
                             </button>
                             <button asp-controller="Posts" asp-action="React" asp-route-likeStatus="fals" class="btn btnwidth dislikeG dislikes @(item.LikeStatus==false ? "activeDislike" : "")" style="float: left;">
@@ -91,10 +104,10 @@
                                         <a href="#" class="me-3"><img width="50px" height="50px" src="@user.ProfileImage" class="profilePic" alt=""></a>
                                     </div>
                                     <div class="bgComments col-10">
-                                            <h6>@user.FirstName @user.SecondName</h6>
+                                        <h6>@user.FirstName @user.SecondName</h6>
                                         <p>@comment.CommentText</p>
                                     </div>
-                                            <p class="text-muted text-end">@comment.CommentDate</p>
+                                    <p class="text-muted text-end">@comment.CommentDate</p>
                                 </div>
                             }
                         }
@@ -104,10 +117,10 @@
                 <form method="post" asp-controller="Posts" asp-action="AddComment">
                     <div>
                         <input hidden asp-for="@Model.Comment.PostId" value="@post.PostId">
-                        <input hidden asp-for="@Model.Comment.UserId" value="@Model.User.Id">
+                        <input hidden asp-for="@Model.Comment.UserId" value="@Model.CurUser.Id">
                         <div class="input-group mb-3">
                             <div class="me-3" style="float: left;">
-                                <img width="40px" height="40px" src="@Model.User.ProfileImage" class="profilePic" alt="">
+                                <img width="40px" height="40px" src="@Model.CurUser.ProfileImage" class="profilePic" alt="">
                             </div>
                             <input asp-for="@Model.Comment.CommentText" type="text" placeholder="Write a comment"
                                class="commentInput w-75 form-control" aria-label="Recipient's comment" aria-describedby="@post.PostId">
