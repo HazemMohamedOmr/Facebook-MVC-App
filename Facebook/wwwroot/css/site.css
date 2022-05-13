@@ -1,29 +1,29 @@
 /* Default style */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 /* END of Default style */
 
 /* Hazem style */
 
-    /* Common styles */
+/* Common styles */
 html, body {
     font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
 }
-    
-    /* Login View */
+
+/* Login View */
 .login-in {
     background-color: #f0f2f5;
     min-height: 720px;
@@ -31,120 +31,120 @@ html, body {
     padding-top: 72px;
 }
 
-.login-in .Info .face-info p {
-    font-size: 28px;
-    font-weight: normal;
-    line-height: 32px;
-}
+    .login-in .Info .face-info p {
+        font-size: 28px;
+        font-weight: normal;
+        line-height: 32px;
+    }
 
-.login-in .login-form form {
-    background-color: #fff;
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
-    box-sizing: border-box;
-    margin: 40px 0 0;
-    padding: 20px 0 28px;
-    padding-top: 20px;
-    padding-bottom: 28px;
-    width: 396px;
-}
+    .login-in .login-form form {
+        background-color: #fff;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+        box-sizing: border-box;
+        margin: 40px 0 0;
+        padding: 20px 0 28px;
+        padding-top: 20px;
+        padding-bottom: 28px;
+        width: 396px;
+    }
 
-.login-in .login-form form input {
-    font-size: 17px;
-    padding: 14px 16px;
-    line-height: 16px;
-    color: #1d2129;
-}
+        .login-in .login-form form input {
+            font-size: 17px;
+            padding: 14px 16px;
+            line-height: 16px;
+            color: #1d2129;
+        }
 
-.login-in .login-form form input::placeholder {
-    color: #c2c4c9;
-}
+            .login-in .login-form form input::placeholder {
+                color: #c2c4c9;
+            }
 
-.login-in .login-form .log-btn {
-    background-color: #1877f2;
-    border: none;
-    border-radius: 6px;
-    font-size: 20px;
-    line-height: 48px;
-    padding: 0 16px;
-    text-align: center;
-    font-weight: bold;
-    width: 100%;
-    color: #fff;
-}
+    .login-in .login-form .log-btn {
+        background-color: #1877f2;
+        border: none;
+        border-radius: 6px;
+        font-size: 20px;
+        line-height: 48px;
+        padding: 0 16px;
+        text-align: center;
+        font-weight: bold;
+        width: 100%;
+        color: #fff;
+    }
 
-.login-in .login-form .new-acc-btn {
-    background-color: #42b72a;
-    border: none;
-    border-radius: 6px;
-    font-size: 17px;
-    line-height: 48px;
-    padding: 0 16px;
-    text-align: center;
-    font-weight: bold;
-    margin: 0 auto;
-    color: #fff;
-}
+    .login-in .login-form .new-acc-btn {
+        background-color: #42b72a;
+        border: none;
+        border-radius: 6px;
+        font-size: 17px;
+        line-height: 48px;
+        padding: 0 16px;
+        text-align: center;
+        font-weight: bold;
+        margin: 0 auto;
+        color: #fff;
+    }
 
-    /* Register View */
+/* Register View */
 .Register-in {
     background-color: #f0f2f5;
     min-height: 720px;
     padding-bottom: 112px;
 }
 
-.Register-in .register-form {
-    background-color: #fff;
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
-    box-sizing: border-box;
-    margin: 10px 0;
-    padding: 10px 0 0;
-    width: 430px;
-}
+    .Register-in .register-form {
+        background-color: #fff;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+        box-sizing: border-box;
+        margin: 10px 0;
+        padding: 10px 0 0;
+        width: 430px;
+    }
 
-.Register-in .register-form .Info .title h3 {
-    font-size: 25px;
-    line-height: 32px;
-    font-weight: 600;
-    text-align: center;
-    color: #1c1e21;
-    margin-bottom: 0;
-}
+        .Register-in .register-form .Info .title h3 {
+            font-size: 25px;
+            line-height: 32px;
+            font-weight: 600;
+            text-align: center;
+            color: #1c1e21;
+            margin-bottom: 0;
+        }
 
-.Register-in .register-form .Info .head p {
-    font-size: 15px;
-    line-height: 24px;
-    text-align: center;
-    margin-bottom: 0;
-    color: #606770;
-}
+        .Register-in .register-form .Info .head p {
+            font-size: 15px;
+            line-height: 24px;
+            text-align: center;
+            margin-bottom: 0;
+            color: #606770;
+        }
 
-.Register-in .register-form form input {
-    font-size: 17px;
-    padding: 10px 16px;
-    line-height: 16px;
-    color: #1d2129;
-}
+        .Register-in .register-form form input {
+            font-size: 17px;
+            padding: 10px 16px;
+            line-height: 16px;
+            color: #1d2129;
+        }
 
-.Register-in .register-form form input::placeholder {
-    color: #c2c4c9;
-}
+            .Register-in .register-form form input::placeholder {
+                color: #c2c4c9;
+            }
 
-.Register-in .register-form .sign-btn {
-    background-color: #42b72a;
-    border: none;
-    border-radius: 6px;
-    font-size: 17px;
-    line-height: 36px;
-    padding: 0 16px;
-    text-align: center;
-    font-weight: bold;
-    margin: 0 auto;
-    color: #fff;
-}
+        .Register-in .register-form .sign-btn {
+            background-color: #42b72a;
+            border: none;
+            border-radius: 6px;
+            font-size: 17px;
+            line-height: 36px;
+            padding: 0 16px;
+            text-align: center;
+            font-weight: bold;
+            margin: 0 auto;
+            color: #fff;
+        }
 
 /* END of Hazem style */
 
@@ -220,29 +220,29 @@ body {
     margin-top: 12px;
 }
 
-.headBtns:hover {
-    background-color: #a7a6a6;
-}
+    .headBtns:hover {
+        background-color: #a7a6a6;
+    }
 
 .headBtnsPosts {
     background-color: rgb(4, 109, 4);
     color: white;
 }
 
-.headBtnsPosts:hover {
-    background-color: rgb(8, 122, 27);
-    color: white;
-}
+    .headBtnsPosts:hover {
+        background-color: rgb(8, 122, 27);
+        color: white;
+    }
 
 .headBtnsFriends {
     background-color: rgb(4, 109, 4);
     color: white;
 }
 
-.headBtnsFriends:hover {
-    background-color: rgb(8, 122, 27);
-    color: white;
-}
+    .headBtnsFriends:hover {
+        background-color: rgb(8, 122, 27);
+        color: white;
+    }
 /*intro card*/
 .cardBtnIntro {
     margin: 7px 0px;
@@ -327,10 +327,10 @@ body {
     font-size: 12px;
 }
 
-.dropBtn:hover {
-    color: black;
-    background-color: #9e9c9c;
-}
+    .dropBtn:hover {
+        color: black;
+        background-color: #9e9c9c;
+    }
 
 .dropdown-item {
     font-size: 15px;
@@ -434,24 +434,24 @@ body {
     width: 100%;
 }
 
-.childOverlay img {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    margin: auto;
-    border-radius: 7px;
-}
+    .childOverlay img {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        margin: auto;
+        border-radius: 7px;
+    }
 
-.childOverlay i {
-    position: absolute;
-    right: 50px;
-    top: 100px;
-    font-size: 35px;
-    color: #0870e3;
-    cursor: pointer;
-}
+    .childOverlay i {
+        position: absolute;
+        right: 50px;
+        top: 100px;
+        font-size: 35px;
+        color: #0870e3;
+        cursor: pointer;
+    }
 
 
 
@@ -476,20 +476,23 @@ body {
     position: relative;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
 }
 
-.coverPhotoGredient::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.4));
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    box-shadow: 1px 1px 5px;
-}
+    .coverPhotoGredient::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.4));
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        box-shadow: 1px 1px 5px;
+    }
 
 .profilePicTrans {
     position: relative;
@@ -532,20 +535,20 @@ body {
 }
 
 
-.header .inputBox span {
-    color: grey;
-    font-size: 1rem;
-    padding-left: 1rem;
-    cursor: pointer;
-}
+    .header .inputBox span {
+        color: grey;
+        font-size: 1rem;
+        padding-left: 1rem;
+        cursor: pointer;
+    }
 
-.header .inputBox input {
-    outline: none;
-    border: 0;
-    background: none;
-    padding: 0.5rem;
-    font-size: 1rem;
-}
+    .header .inputBox input {
+        outline: none;
+        border: 0;
+        background: none;
+        padding: 0.5rem;
+        font-size: 1rem;
+    }
 
 
 .header .SmallUser img {
@@ -563,24 +566,26 @@ body {
     font-size: 1.5rem;
 }
 
-.header .fa-solid:hover {
-    color: rgb(18, 154, 247);
-}
+    .header .fa-solid:hover {
+        color: rgb(18, 154, 247);
+    }
 
 
 .header .Notification-container {
     position: absolute;
     top: 100%;
     right: -100%;
-    height: 35rem;
+    max-height: 75vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
     width: 25rem;
     padding: 0 1.5rem;
     background: white;
 }
 
-.header .Notification-container.active {
-    right: 1%;
-}
+    .header .Notification-container.active {
+        right: 1%;
+    }
 
 .header .Notification-container2 {
     position: absolute;
@@ -592,9 +597,9 @@ body {
     background: white;
 }
 
-.header .Notification-container2.active {
-    right: 1%;
-}
+    .header .Notification-container2.active {
+        right: 1%;
+    }
 
 .header .Notification-container .h1 {
     font-size: 13px;
@@ -613,19 +618,19 @@ body {
     gap: 1.5rem;
 }
 
-.header .Notification-container .singel-notfication:hover {
-    background: #e4e6eb;
-}
+    .header .Notification-container .singel-notfication:hover {
+        background: #e4e6eb;
+    }
 
-.header .Notification-container .singel-notfication .content .time {
-    font-size: 0.8rem;
-    color: blue;
-}
+    .header .Notification-container .singel-notfication .content .time {
+        font-size: 0.8rem;
+        color: blue;
+    }
 
-.header .Notification-container .singel-notfication .content span {
-    font-size: 1rem;
-    font-weight: 600;
-}
+    .header .Notification-container .singel-notfication .content span {
+        font-size: 1rem;
+        font-weight: 600;
+    }
 
 header .Notification-container .singel-notfication .content a {
     text-decoration: none;
@@ -636,87 +641,88 @@ header .Notification-container .singel-notfication .content a {
     position: absolute;
     top: 100%;
     right: -100%;
-    height: 35rem;
     width: 25rem;
     padding: 0 1.5rem;
     background: white;
 }
 
-.header .Logout-container.active {
-    right: 0.5%;
-}
+    .header .Logout-container.active {
+        right: 0.5%;
+    }
 
-.header .Logout-container img {
-    width: 5rem;
-}
+    .header .Logout-container img {
+        width: 5rem;
+    }
 
-.header .Logout-container .small-info {
-    display: flex;
-    align-items: center;
-    border-bottom: 0.1rem solid rgb(107, 106, 106);
-    margin-top: 1rem;
-    padding-bottom: 1rem;
-}
+    .header .Logout-container .small-info {
+        display: flex;
+        align-items: center;
+        border-bottom: 0.1rem solid rgb(107, 106, 106);
+        margin-top: 1rem;
+        padding-bottom: 1rem;
+    }
 
-.header .Logout-container p {
-    margin-left: 1rem;
-    font-weight: 600;
-}
+    .header .Logout-container p {
+        margin-left: 1rem;
+        font-weight: 600;
+    }
 
-.header .Logout-container .small-element {
-    display: flex;
-    margin-top: 1rem;
-    padding-bottom: 1rem;
-}
+    .header .Logout-container .small-element {
+        display: flex;
+        margin-top: 1rem;
+        padding-bottom: 1rem;
+    }
 
-.header .Logout-container .small-element a {
-    text-decoration: none;
-    margin-left: 1rem;
-    font-weight: 600;
-    color: black;
-    transition: 0.2s all ease-in-out;
-}
+        .header .Logout-container .small-element a {
+            text-decoration: none;
+            margin-left: 1rem;
+            font-weight: 600;
+            color: black;
+            transition: 0.2s all ease-in-out;
+        }
 
-.header .Logout-container .small-element a:hover {
-    color: #0d6efd;
-}
+            .header .Logout-container .small-element a:hover {
+                color: #0d6efd;
+            }
 
 
 .header .Search-container {
     position: absolute;
     top: 100%;
     right: -100%;
-    height: 35rem;
     width: 20rem;
+    max-height: 60vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
     padding: 0 1.5rem;
     background: white;
 }
 
-.header .Search-container.active {
-    left: 0%;
-}
+    .header .Search-container.active {
+        left: 0%;
+    }
 
-.header .Search-container .search-element {
-    position: relative;
-    margin: 2rem 0;
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-}
+    .header .Search-container .search-element {
+        position: relative;
+        margin: 2rem 0;
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+    }
 
-.header .Search-container .search-element:hover {
-    background: #e4e6eb;
-}
+        .header .Search-container .search-element:hover {
+            background: #e4e6eb;
+        }
 
-.header .Search-container .search-element img {
-    width: 4rem;
-}
+        .header .Search-container .search-element img {
+            width: 4rem;
+        }
 
-.header .Search-container .search-element a {
-    text-decoration: none;
-    font-weight: 600;
-    color: black;
-}
+        .header .Search-container .search-element a {
+            text-decoration: none;
+            font-weight: 600;
+            color: black;
+        }
 
 
 

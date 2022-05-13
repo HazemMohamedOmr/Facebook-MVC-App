@@ -6,7 +6,7 @@ namespace Facebook.Models {
         [Key]
         public int PostId { get; set; }
         public int UserId { get; set; }
-        public string PostContent { get; set; }
+        public string? PostContent { get; set; }
         public DateTime PostDate { get; set; } = DateTime.Now;
         public int PostStatus { get; set; } = 1;
         public string? PostImage { get; set; }

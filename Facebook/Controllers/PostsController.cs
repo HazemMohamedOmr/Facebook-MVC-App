@@ -13,6 +13,7 @@ namespace Facebook.Controllers {
             WebHostEnvironment = env;
         }
         [HttpPost]
+
         public IActionResult CreatePost(Post post, IFormFile? postImg) {
 
             if (post.PostContent == null && postImg == null) {
@@ -38,10 +39,14 @@ namespace Facebook.Controllers {
         [HttpGet]
         public IActionResult EditPost(int postId) {
             User user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("UserData"));
+            List<UserFriend> friends = context.UserFriends.Where(f => f.FriendId == user.Id && f.FriendRequestStatus == 0).ToList();
+            List<User> allUsers = context.Users.ToList();
             Post post = context.Posts.SingleOrDefault(p => p.PostId == postId);
             UserProfileViewModel userProfile = new UserProfileViewModel() {
                 _Header = new _HeaderModel() {
                     User = user,
+                    Friends = friends,
+                    Users = allUsers
                 },
                 _ProfileThumb = new _ProfileThumbModel() {
                     user = user,
@@ -63,6 +68,9 @@ namespace Facebook.Controllers {
 
         public IActionResult DeletePost(int postId) {
             Post post = context.Posts.Find(postId);
+            string oldImgPath = WebHostEnvironment.WebRootPath + post.PostImage;
+            if (System.IO.File.Exists(oldImgPath))
+                System.IO.File.Delete(oldImgPath);
             context.Posts.Remove(post);
             context.SaveChanges();
             return RedirectToAction("Index", "User");
@@ -134,10 +142,6 @@ namespace Facebook.Controllers {
                 return RedirectToAction("GetUser", "User", post);
             }
         }
-
-
-
-
 
 
 

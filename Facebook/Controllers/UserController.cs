@@ -8,23 +8,24 @@ namespace Facebook.Controllers {
     public class UserController : Controller {
         private readonly ApplicationDBContext context;
         private IWebHostEnvironment WebHostEnvironment;
-
         public UserController(ApplicationDBContext cont, IWebHostEnvironment env) {
             context = cont;
             WebHostEnvironment = env;
         }
-
         public IActionResult Index() {
             if (HttpContext.Session.GetString("UserData") == null)
                 return RedirectToAction("Login");
             User user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("UserData"));
             List<User> allUsers = context.Users.ToList();
+            List<UserFriend> friends = context.UserFriends.Where(f => f.FriendId == user.Id && f.FriendRequestStatus == 0).ToList();
             List<Post> posts = context.Posts.OrderByDescending(e => e.PostDate).Where(p => p.UserId == user.Id).ToList();
             List<PostLike> likes = context.PostLikes.Where(p => p.UserId == user.Id).ToList();
             List<PostComment> comments = context.PostComments.ToList();
             UserProfileViewModel userProfile = new UserProfileViewModel() {
                 _Header = new _HeaderModel() {
                     User = user,
+                    Friends = friends,
+                    Users = allUsers
                 },
                 _ProfileThumb = new _ProfileThumbModel() {
                     user = user,
@@ -48,25 +49,28 @@ namespace Facebook.Controllers {
 
         }
         public IActionResult Logout() {
+            if (HttpContext.Session.GetString("UserData") == null)
+                return RedirectToAction("Login");
             HttpContext.Session.Remove("UserData");
             return RedirectToAction("Login");
         }
-
         public IActionResult Login() {
             return View();
         }
-
         public IActionResult Register() {
             return View();
         }
-
         public IActionResult EditProfile() {
             if (HttpContext.Session.GetString("UserData") == null)
                 return RedirectToAction("Login");
             User user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("UserData"));
+            List<User> users = context.Users.ToList();
+            List<UserFriend> friends = context.UserFriends.Where(f => f.FriendId == user.Id && f.FriendRequestStatus == 0).ToList();
             EditViewModel editViewModel = new EditViewModel() {
                 _Header = new _HeaderModel() {
                     User = user,
+                    Friends = friends,
+                    Users = users
                 },
                 _ProfileThumb = new _ProfileThumbModel() {
                     user = user,
@@ -76,7 +80,6 @@ namespace Facebook.Controllers {
             };
             return View(editViewModel);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult AddUser([Bind("FirstName,SecondName,Email,Password,ConfirmPassword,Phone")] User user) {
@@ -94,7 +97,6 @@ namespace Facebook.Controllers {
             }
             return View("Register", user);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult GetUser([Bind("Email,Password")] User user) {
@@ -108,13 +110,16 @@ namespace Facebook.Controllers {
             return View("Login", user);
         }
 
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult UpdateUser([Bind("Id,FirstName,SecondName,Email,Password,ConfirmPassword,Phone,Country,City,ProfileImage,ProfileCover")]
         User user, IFormFile? profImg, IFormFile? profCover, int id) {
             //if (id != user.Id)
             //    return BadRequest();
-
+            if (HttpContext.Session.GetString("UserData") == null)
+                return RedirectToAction("Login");
             if (ModelState.IsValid) {
                 if (profImg != null) {
                     if (user.ProfileImage != "\\img\\defaultProfile.jpg") {
@@ -169,17 +174,21 @@ namespace Facebook.Controllers {
 
             return View("EditProfile", user);
         }
-
-
         public IActionResult MyFriends() {
+            if (HttpContext.Session.GetString("UserData") == null)
+                return RedirectToAction("Login");
             User user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("UserData"));
             List<UserFriend> friends = context.UserFriends.Where(f => f.UserId == user.Id && f.FriendRequestStatus == 1).ToList();
+            List<UserFriend> newFriends = context.UserFriends.Where(f => f.FriendId == user.Id && f.FriendRequestStatus == 0).ToList();
             List<User> users = context.Users.ToList();
             UserFriendsViewModel model = new UserFriendsViewModel() {
                 Friends = friends,
                 Users = users,
                 _Header = new _HeaderModel() {
                     User = user,
+                    Friends = newFriends,
+                    Users = users
+
                 },
                 _ProfileThumb = new _ProfileThumbModel() {
                     user = user,
@@ -190,10 +199,12 @@ namespace Facebook.Controllers {
         }
         [HttpGet]
         public IActionResult GetUser(int id, Post? newPost, UserFriend? newfriend) {
+            if (HttpContext.Session.GetString("UserData") == null)
+                return RedirectToAction("Login");
             if (id == 0) {
                 id = newPost.UserId;
             }
-            if (newfriend.FriendId!=0) {
+            if (newfriend.FriendId != 0) {
                 id = newfriend.FriendId;
             }
             User curUser = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("UserData"));
@@ -204,16 +215,19 @@ namespace Facebook.Controllers {
             List<User> allUsers = context.Users.ToList();
             List<Post> posts = new List<Post>();
             List<UserFriend> friends = context.UserFriends.ToList();
-            if (context.UserFriends.FirstOrDefault(f => f.UserId == curUser.Id && f.FriendRequestStatus == 1) != null) {
-                posts = context.Posts.Where(p => p.UserId == user.Id && (p.PostStatus == 1 || p.PostStatus == 2)).ToList();
+            List<UserFriend> newFriends = context.UserFriends.Where(f => f.FriendId == curUser.Id && f.FriendRequestStatus == 0).ToList();
+            if (context.UserFriends.FirstOrDefault(f => f.UserId == curUser.Id && f.FriendId == id && f.FriendRequestStatus == 1) != null) {
+                posts = context.Posts.OrderByDescending(e => e.PostDate).Where(p => p.UserId == user.Id && (p.PostStatus == 1 || p.PostStatus == 2)).ToList();
             } else {
-                posts = context.Posts.Where(p => p.UserId == user.Id && p.PostStatus == 1).ToList();
+                posts = context.Posts.OrderByDescending(e => e.PostDate).Where(p => p.UserId == user.Id && p.PostStatus == 1).ToList();
             }
             List<PostLike> likes = context.PostLikes.Where(p => p.UserId == curUser.Id).ToList();
             List<PostComment> comments = context.PostComments.ToList();
             UserProfileViewModel userProfile = new UserProfileViewModel() {
                 _Header = new _HeaderModel() {
                     User = curUser,
+                    Friends = newFriends,
+                    Users = allUsers
                 },
                 _ProfileThumb = new _ProfileThumbModel() {
                     user = user,
@@ -239,8 +253,9 @@ namespace Facebook.Controllers {
             };
             return View(userProfile);
         }
-
         public IActionResult SendRequest(int friendId, int userId) {
+            if (HttpContext.Session.GetString("UserData") == null)
+                return RedirectToAction("Login");
             UserFriend friend = new UserFriend() {
                 UserId = userId,
                 FriendId = friendId,
@@ -250,8 +265,9 @@ namespace Facebook.Controllers {
             context.SaveChanges();
             return RedirectToAction("GetUser", friend);
         }
-
         public IActionResult AddFriend(int friendId, int userId) {
+            if (HttpContext.Session.GetString("UserData") == null)
+                return RedirectToAction("Login");
             UserFriend oldFriend = context.UserFriends.FirstOrDefault(x => x.UserId == friendId &&
             x.FriendId == userId && x.FriendRequestStatus == 0);
             oldFriend.FriendRequestStatus = 1;
@@ -266,16 +282,18 @@ namespace Facebook.Controllers {
             context.SaveChanges();
             return RedirectToAction("GetUser", friend);
         }
-
         public IActionResult CancelRequest(int friendId, int userId) {
+            if (HttpContext.Session.GetString("UserData") == null)
+                return RedirectToAction("Login");
             UserFriend friend = context.UserFriends.FirstOrDefault(x => x.UserId == userId &&
             x.FriendId == friendId && x.FriendRequestStatus == 0);
             context.UserFriends.Remove(friend);
             context.SaveChanges();
             return RedirectToAction("GetUser", friend);
         }
-
         public IActionResult RemoveFriend(int friendId, int userId) {
+            if (HttpContext.Session.GetString("UserData") == null)
+                return RedirectToAction("Login");
             UserFriend userFriend = context.UserFriends.FirstOrDefault(x => x.UserId == userId &&
               x.FriendId == friendId && x.FriendRequestStatus == 1);
             UserFriend friend = context.UserFriends.FirstOrDefault(x => x.UserId == friendId &&
@@ -286,7 +304,20 @@ namespace Facebook.Controllers {
             context.SaveChanges();
             return RedirectToAction("GetUser", userFriend);
         }
+        public IActionResult Decline(int friendId, int userId) {
+            if (HttpContext.Session.GetString("UserData") == null)
+                return RedirectToAction("Login");
+            UserFriend friend = context.UserFriends.FirstOrDefault(x => x.UserId == userId &&
+            x.FriendId == friendId && x.FriendRequestStatus == 0);
+            UserFriend userFriend = new UserFriend() {
+                UserId = friend.FriendId,
+                FriendId = friend.UserId,
+                FriendRequestStatus = friend.FriendRequestStatus,
+            };
+            context.UserFriends.Remove(friend);
+            context.SaveChanges();
 
-
+            return RedirectToAction("GetUser", userFriend);
+        }
     }
 }

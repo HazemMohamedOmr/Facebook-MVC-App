@@ -1,17 +1,21 @@
 ﻿@model Facebook.Models.ViewModels._HeaderModel
+
 <header class="header">
     <nav class="fixed-top navColor navbar navbar-expand-lg shadow-sm ">
+
         <div class="facebook-icon ms-2">
-            <i class="fa-brands fa-facebook" style="background-color: white; border-radius: 50%;"></i>
+            <a asp-action="Index"><i class="fa-brands fa-facebook" style="background-color: white; border-radius: 50%;"></i></a>
         </div>
+
         <div class="collapse navbar-collapse">
             <form class="form-inline my-2 my-lg-0">
                 <div class="inputBox" id="searching">
                     <span class="fas fa-search"></span>
-                    <input type="search" placeholder="Search Facebook">
+                    <input id="searchUser" type="search" placeholder="Search Facebook">
                 </div>
             </form>
         </div>
+
         <div class="d-flex">
             <div class="icons">
                 <div class="SmallUser">
@@ -29,40 +33,36 @@
             </div>
 
             <div class="Notification-container shadow-lg ">
-                <h3> Notifications</h3>
-                <div class="singel-notfication">
-                    <img src="~/img/user1.png" alt="">
-                    <div class="content">
-                        <a href="#">
-                            <p><span> Ahmed Ezz </span> accepted your friend request.</p>
-                        </a>
-                        <div class="time">15 hours ago</div>
-                    </div>
-                </div>
-                <div class="singel-notfication">
-                    <img src="~/img/user1.png" alt="">
-                    <div class="content">
-                        <a href="#">
-                            <p><span> John Doe  </span> commented on a post that your are tagged in.</p>
-                        </a>
-                        <div class="time">15 hours ago</div>
-                    </div>
-
-                </div>
-                <div class="singel-notfication">
-                    <img src="~/img/user1.png" alt="">
-                    <div class="content lastContent">
-                        <a href="#">
-                            <p><span> User Name</span> sent you a friend request.</p>
-                        </a>
-                        <div class="time">15 hours ago</div>
-                        <div class="lastContentLinks">
-                            <a href="#" class="btn btn-primary text-light my-1">Accept</a>
-                            <a href="#" class="btn btn-light my-1 shadow-sm">Decline</a>
+                @{
+                    int flag = 0;
+                    <h3> Notifications</h3>
+                    @foreach (var friend in (List<UserFriend>)Model.Friends) {
+                        foreach (var user in (List<User>)Model.Users) {
+                            if (friend.UserId == user.Id) {
+                                <div class="singel-notfication">
+                                    <img src="@user.ProfileImage" alt="">
+                                    <div class="content lastContent">
+                                        <a asp-controller="User" asp-action="GetUser" asp-route-Id="@user.Id">
+                                            <p><span>@user.FirstName @user.SecondName</span> sent you a friend request.</p>
+                                        </a>
+                                        <div class="lastContentLinks">
+                                            <a asp-controller="User" asp-action="AddFriend" asp-route-friendId="@friend.UserId" asp-route-userId="@Model.User.Id" class="btn btn-primary text-light my-1">Accept</a>
+                                            <a asp-controller="User" asp-action="Decline" asp-route-friendId="@Model.User.Id" asp-route-userId="@friend.UserId" class="btn btn-light my-1 shadow-sm">Decline</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                flag = 1;
+                            }
+                        }
+                    }
+                    if (flag == 0) {
+                        <div class="singel-notfication text-danger">
+                            <span class="text-danger text-bold">You haven't any notification</span>
                         </div>
-                    </div>
-                </div>
+                    }
+                }
             </div>
+
             <div class="Logout-container shadow-lg ">
                 <div class="small-info">
                     <img src="@Model.User.ProfileImage" alt="">
@@ -78,21 +78,58 @@
                 </div>
             </div>
 
-            <div class="Search-container shadow-lg ">
-                <h5> Recent Seraches</h5>
-                <div class="search-element">
-                    <img src="~/img/user1.png" alt="">
-                    <a href="#"><span> Ahmed Ezz </span></a>
-                </div>
-                <div class="search-element">
-                    <img src="~/img/user1.png" alt="">
-                    <a href="#"><span> Ahmed Ezz </span></a>
-                </div>
-                <div class="search-element">
-                    <img src="~/img/user1.png" alt="">
-                    <a href="#"><span> Ahmed Ezz </span></a>
-                </div>
+            <div id="searchResult" class="Search-container  shadow-lg ">
             </div>
+
         </div>
     </nav>
 </header>
+
+<script type="text/javascript">
+
+    var newsObj = [];
+    let newArr=[];
+
+    (function () {
+
+    @foreach (var item in (List<User>)Model.Users) {
+
+        @:newsObj.push({
+        @:Id:@item.Id,
+        @:Fname: "@item.FirstName",
+        @:Sname: "@item.SecondName",
+        @:Email:"@item.Email",
+        @:Phone:"@item.Phone",
+        @:ProfileImage:"@item.ProfileImage.Insert(4,"\\")"});
+    }
+    })();
+
+    let searshBtn= document.querySelector("#searchUser");
+    let searchResult= document.querySelector("#searchResult");
+
+    if(searshBtn!=null){
+        searshBtn.addEventListener("keyup",()=>{
+            let val=searshBtn.value;
+            newArr=[];
+            newsObj.forEach(item=>{
+                let x=`${item.Fname} ${item.Sname}`
+                if(item.Email.includes(val)||item.Phone.includes(val)||x.toLowerCase().includes(val.toLowerCase())){
+                    newArr.push(item);
+                }
+            })
+            let data="";
+            newArr.forEach(item=>{
+                data+=`
+                    <div class="search-element">
+                        <a href="/User/GetUser/${item.Id}">
+                            <img class="rounded" src="${item.ProfileImage}" alt="">
+                            <span class="ms-1">${item.Fname} ${item.Sname}</span>
+                        </a>
+                    </div>
+                `
+            })
+            searchResult.innerHTML=data;
+        })
+    }
+</script>
+

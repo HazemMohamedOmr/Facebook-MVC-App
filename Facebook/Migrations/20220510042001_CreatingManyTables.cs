@@ -12,7 +12,7 @@ namespace Facebook.Migrations {
                     PostId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    PostContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PostContent = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PostDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PostStatus = table.Column<int>(type: "int", nullable: false),
                     PostImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
