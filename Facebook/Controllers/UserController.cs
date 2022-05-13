@@ -198,7 +198,7 @@ namespace Facebook.Controllers {
             return View(model);
         }
         [HttpGet]
-        public IActionResult GetUser(int id, Post? newPost, UserFriend? newfriend) {
+        public async Task<IActionResult> GetUser(int id, Post? newPost, UserFriend? newfriend) {
             if (HttpContext.Session.GetString("UserData") == null)
                 return RedirectToAction("Login");
             if (id == 0) {

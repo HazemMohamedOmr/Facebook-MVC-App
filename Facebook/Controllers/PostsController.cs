@@ -12,8 +12,11 @@ namespace Facebook.Controllers {
             context = cont;
             WebHostEnvironment = env;
         }
-        [HttpPost]
 
+        public IActionResult Index() {
+            return RedirectToAction("Index", "User");
+        }
+        [HttpPost]
         public IActionResult CreatePost(Post post, IFormFile? postImg) {
 
             if (post.PostContent == null && postImg == null) {
