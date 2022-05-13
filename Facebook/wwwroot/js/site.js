@@ -107,6 +107,30 @@ function showComments(x) {
 }
 
 
+
+//show Likes
+function showLikes(x) {
+    id = "likes+" + x
+    var comments = document.getElementById(id);
+    if (comments.style.display === "none") {
+        comments.style.display = "grid";
+    }
+    else {
+        comments.style.display = "none";
+    }
+}
+
+function closeLikes(x) {
+    id = "likes+" + x
+    var comments = document.getElementById(id);
+    if (comments.style.display === "none") {
+        comments.style.display = "grid";
+    }
+    else {
+        comments.style.display = "none";
+    }
+}
+
 //overlay img
 function showOverlay() {
     var imgUrl = document.getElementsByClassName('ImgUrl');

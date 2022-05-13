@@ -20,6 +20,7 @@ namespace Facebook.Controllers {
             List<UserFriend> friends = context.UserFriends.Where(f => f.FriendId == user.Id && f.FriendRequestStatus == 0).ToList();
             List<Post> posts = context.Posts.OrderByDescending(e => e.PostDate).Where(p => p.UserId == user.Id).ToList();
             List<PostLike> likes = context.PostLikes.Where(p => p.UserId == user.Id).ToList();
+            List<PostLike> postsLike = context.PostLikes.ToList();
             List<PostComment> comments = context.PostComments.ToList();
             UserProfileViewModel userProfile = new UserProfileViewModel() {
                 _Header = new _HeaderModel() {
@@ -43,6 +44,7 @@ namespace Facebook.Controllers {
                     Likes = likes,
                     Comments = comments,
                     Users = allUsers,
+                    PostsLikes = postsLike
                 }
             };
             return View(userProfile);
@@ -198,7 +200,7 @@ namespace Facebook.Controllers {
             return View(model);
         }
         [HttpGet]
-        public async Task<IActionResult> GetUser(int id, Post? newPost, UserFriend? newfriend) {
+        public IActionResult GetUser(int id, Post? newPost, UserFriend? newfriend) {
             if (HttpContext.Session.GetString("UserData") == null)
                 return RedirectToAction("Login");
             if (id == 0) {
@@ -223,6 +225,7 @@ namespace Facebook.Controllers {
             }
             List<PostLike> likes = context.PostLikes.Where(p => p.UserId == curUser.Id).ToList();
             List<PostComment> comments = context.PostComments.ToList();
+            List<PostLike> postsLike = context.PostLikes.ToList();
             UserProfileViewModel userProfile = new UserProfileViewModel() {
                 _Header = new _HeaderModel() {
                     User = curUser,
@@ -249,6 +252,7 @@ namespace Facebook.Controllers {
                     Likes = likes,
                     Comments = comments,
                     Users = allUsers,
+                    PostsLikes = postsLike
                 }
             };
             return View(userProfile);

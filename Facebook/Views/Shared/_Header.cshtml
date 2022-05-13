@@ -1,5 +1,7 @@
 ﻿@model Facebook.Models.ViewModels._HeaderModel
-
+@{
+    int numofnot = 0;
+}
 <header class="header">
     <nav class="fixed-top navColor navbar navbar-expand-lg shadow-sm ">
 
@@ -24,14 +26,6 @@
                 </div>
             </div>
 
-            <div class="icons">
-                <i class="fa-solid fa-bell" id="bell"></i>
-            </div>
-
-            <div class="icons">
-                <i class="fa-solid fa-arrow-down" id="arrow"></i>
-            </div>
-
             <div class="Notification-container shadow-lg ">
                 @{
                     int flag = 0;
@@ -51,6 +45,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                numofnot = numofnot + 1;
                                 flag = 1;
                             }
                         }
@@ -63,6 +58,17 @@
                 }
             </div>
 
+            
+            <div class="icons position-relative">
+                <i class="fa-solid fa-bell" id="bell"></i>
+
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    @numofnot
+                </span>
+            </div>
+            <div class="icons">
+                <i class="fa-solid fa-arrow-down" id="arrow"></i>
+            </div>
             <div class="Logout-container shadow-lg ">
                 <div class="small-info">
                     <img src="@Model.User.ProfileImage" alt="">

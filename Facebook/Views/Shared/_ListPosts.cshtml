@@ -56,14 +56,51 @@
             @*<!--Post Footer-->
                 <!--display likes-->*@
             <div class="ms-3 my-2">
-                <i class="fa-solid like fa-thumbs-up"></i>
-                <span>@post.NumOfLike</span>
-                <i class="fa-solid dislike fa-thumbs-down ms-2"></i>
-                <span>@post.NumOfDisLike</span>
+                <label style="cursor:pointer;" onclick="showLikes(@post.PostId)">
+                    <i class="fa-solid like fa-thumbs-up"></i>
+                    <span>@post.NumOfLike</span>
+                    <i class="fa-solid dislike fa-thumbs-down ms-2"></i>
+                    <span>@post.NumOfDisLike</span>
+                </label>
+
                 <span style="float: right;" class="me-3">
                     <i class=" fa-solid fa-comment comment"></i>@post.NumOfComment
                 </span>
             </div>
+
+
+            <div class="LikesParentOverlay" id="likes+@post.PostId" style="display: none;">
+                <div class="likeChildOverlay">
+                    @{
+                        <i class="fa-solid fa-xmark likeChildOverlayColse" onclick="closeLikes(@post.PostId)"></i>
+                        <h4>Likes @(post.NumOfLike+post.NumOfDisLike)</h4>
+                        if (post.NumOfDisLike + post.NumOfLike > 0) {
+                            @foreach (var like in (List<PostLike>)Model.PostModel.PostsLikes) {
+                                if (like.PostId == post.PostId) {
+                                    @foreach (var user in (List<User>)@Model.PostModel.Users) {
+                                        if (like.UserId == user.Id) {
+                                            <div class="my-3">
+                                                <a asp-action="GetUser" asp-controller="User" asp-route-id="@user.Id" style="text-decoration:none;">
+                                                    <img class="rounded" height="40px" width="40px" src="@user.ProfileImage" alt="">
+                                                    <span class="mx-2">@user.FirstName @user.SecondName</span>
+                                                    @if (like.LikeStatus) {
+                                                        <i class="fa-solid fa-thumbs-up"></i>
+                                                    } else {
+                                                        <i class="fa-solid dislike fa-thumbs-down ms-2"></i>
+                                                    }
+                                                </a>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            <span class="text-danger text-bold">There are no likes here</span>
+                        }
+                    }
+                </div>
+            </div>
+
             @*<!--buttons-->*@
             <div class="card-footer">
                 @*<!--Create Likes-->*@
